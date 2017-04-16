@@ -19,7 +19,7 @@ MongoClient.connect(url, function (err, db) {
             $ = cheerio.load(res.text);
             try {
                 maxPage = Number($(".search_pagination_right")[0].children[5].children[0].data);
-                maxPage=5;
+                // maxPage=5;
             } catch (error) {
                 console.log("Access deneied wait for 30min");
                 // maxPage=5;
@@ -27,9 +27,6 @@ MongoClient.connect(url, function (err, db) {
                 mySetTimeout(360000);
                 maxPage = Number($(".search_pagination_right")[0].children[5].children[0].data);
             };
-
-
-            console.log("dsds");
             n = 1;
             // for(var j = 2;j<maxPage+1;j++){
             for (var j = n; j < maxPage + 1; j++) {
@@ -62,7 +59,7 @@ MongoClient.connect(url, function (err, db) {
                             delete (data.onmouseout);
                             delete (data.class);
 
-                            console.log(data);
+                            // console.log(data);
                             db.collection("steam_info_2").insert(data);
                         };
                         mySetTimeout(5000);
