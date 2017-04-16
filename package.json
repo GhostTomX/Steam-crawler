@@ -1,0 +1,29 @@
+{
+  "name": "steamcrawler",
+  "version": "1.0.0",
+  "description": "A crawler mainly obtain data from the biggest gameplay platform Steam",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GhostTomX/Steam_crawler.git"
+  },
+  "keywords": [
+    "steam",
+    "crawler"
+  ],
+  "author": "GTom",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/GhostTomX/Steam_crawler/issues"
+  },
+  "homepage": "https://github.com/GhostTomX/Steam_crawler#readme",
+  "dependencies": {
+    "async": "^2.3.0",
+    "cheerio": "^0.22.0",
+    "mongodb": "^2.2.25",
+    "superagent": "^3.5.2"
+  }
+}
