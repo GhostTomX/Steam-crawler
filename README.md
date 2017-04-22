@@ -10,7 +10,13 @@ http://store.steampowered.com/search/?sort_by=Released_DESC
 
 https://wiki.teamfortress.com/wiki/User:RJackson/StorefrontAPI#Known_methods
 
+https://developer.valvesoftware.com/wiki/Steam_Web_API
+
+http://www.rubydoc.info/github/YusefOuda/steam-api/SteamApi/ISteamUserStats
+
 https://api.steampowered.com/ISteamUserStats/GetNumberOfCurrentPlayers/v1/?appid=617560
+
+http://api.steampowered.com/ISteamWebAPIUtil/GetSupportedAPIList/v0001/?format=json
 
 ## 类似功能网站
 
