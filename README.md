@@ -4,22 +4,33 @@
 
 本人一直比较关注独立游戏的制作，平时玩的游戏也主要以独立游戏为主。到目前为止，并没有适合开发者来获得各大游戏数据的平台，包括作者信息，影响力分数，优秀作品集等等。突然想知道独立游戏每段时间内的上架数目，索性觉得就把所有数据都爬下来看看。
 
+## 项目展示地址
+
+http://steamshop.info/
+
+
 ## 目标：
 
 - 为了了解最新的游戏资讯
 
-- 熟悉nodejs的爬虫
+- 熟悉nodejs
 
-   打算长期维护这个爬虫和数据，欢迎查阅。
+   打算长期维护这个数据，欢迎查阅。
 
 ## 外部依赖项
 
 - [superagent](http://visionmedia.github.io/superagent/)：发出request,设定http的header
 - [cheerio](https://github.com/cheeriojs/cheerio)：包装http返回的html内容成对象（类json文件）
 - [Mongodb](https://www.mongodb.com/)：数据库
+- [Async](https://github.com/caolan/async)：控制并发数量与异步结果
 
 
 ## Change log
+
+### v0.13  （2016.04.22）
+
+- 使用异步重写了函数
+- 增加了Async来管理并发数量与爬取速度
 
 ### v0.12  （2016.04.17）
 
