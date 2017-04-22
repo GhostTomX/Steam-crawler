@@ -4,6 +4,20 @@
 
 本人一直比较关注独立游戏的制作，平时玩的游戏也主要以独立游戏为主。到目前为止，并没有适合开发者来获得各大游戏数据的平台，包括作者信息，影响力分数，优秀作品集等等。突然想知道独立游戏每段时间内的上架数目，索性觉得就把所有数据都爬下来看看。
 
+## 数据来源
+
+http://store.steampowered.com/search/?sort_by=Released_DESC
+
+https://wiki.teamfortress.com/wiki/User:RJackson/StorefrontAPI#Known_methods
+
+https://api.steampowered.com/ISteamUserStats/GetNumberOfCurrentPlayers/v1/?appid=617560
+
+## 类似功能网站
+
+https://steamdb.info/
+
+http://steamgraph.net/index.php
+
 ## 项目展示地址
 
 http://steamshop.info/
