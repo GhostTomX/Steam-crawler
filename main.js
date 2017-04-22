@@ -3,25 +3,32 @@ var cheerio = require('cheerio');
 var async = require('async');
 var MongoClient = require('mongodb').MongoClient;
 var url = 'mongodb://localhost/Steam_data';
+var threadCount = 0;//设定并发数量
 console.log('爬虫程序开始运行......');
 
 MongoClient.connect(url, function (err, db) {
     console.log('数据库已链接');
-    var j =0;
+    var j = 0 ;
     lastPage = "";
+    var jpool = [];
     for (; j < 1080; j++) {
-        mySetTimeout(1500);
-        console.log("准备好第" + j + "次请求");
-        request(j);
+        jpool.push(j);
     }
+    async.mapLimit(jpool,5, function(j,cb){  
+        req(j,cb);
+    }, function(err,results){  
+        console.log("结束");
+        console.log(results);  
+    });  
+
     function mySetTimeout(ms) {
         var currentTime = new Date().getTime();
         while (new Date().getTime() < currentTime + ms);
     }
 
 
-
-    function request(j) {
+    function req(j, callback) {
+        threadCount++;
         superagent
             .get('http://store.steampowered.com/search/?sort_by=Released_DESC' + '&page=' + j)
             // .get('www.baidu.com')
@@ -64,19 +71,18 @@ MongoClient.connect(url, function (err, db) {
                     delete (data.onmouseout);
                     delete (data.class);
 
-                    db.collection("steam_info_20170421").insert(data);
+                    db.collection("steam_info_20170422").insert(data);
                 };
                 mySetTimeout(100);
-                console.log("第" + j + "页完成");
+                console.log("第" + j + "页完成,当前并发数"+threadCount);
                 j++;
-                // if (j === 1079) {
-                //     setTimeout(30*100);
-                // db.close();
-                // }
+                
+                threadCount--;
+                callback(null, j);
             });
     }
 
-console.log("test");
+// console.log("test");
 
 });
 
