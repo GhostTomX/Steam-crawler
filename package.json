@@ -24,6 +24,7 @@
     "async": "^2.3.0",
     "cheerio": "^0.22.0",
     "mongodb": "^2.2.25",
+    "request": "^2.81.0",
     "superagent": "^3.5.2"
   }
 }
