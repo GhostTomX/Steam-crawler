@@ -9,15 +9,17 @@ console.log('爬虫程序开始运行......');
 
 MongoClient.connect(url, function (err, db) {
     console.log('数据库已链接');
-    var j = 1060;
+    var j = 1000;
     lastPage = "";
     var jpool = [];
+    
     for (; j < 1070; j++) {
         jpool.push(j);
     }
-    async.mapLimit(jpool, 5, function (j, cb) {
-        req(j, cb);
+    async.mapLimit(jpool, 1, function (j, cb) {
+        setTimeout(function(){req(j, cb);},10000);
     }, function (err, results) {
+
         console.log("结束");
         console.log(results);
     });
@@ -73,19 +75,7 @@ MongoClient.connect(url, function (err, db) {
                                     data.date = '发生错误';
                                 }
                             }
-                            // console.log("***" + data.title);
-                        //     (function (data){
-                        //     steamAPI(data['data-ds-appid'], function (steamapi) {
-                        //         // console.log("***" +i );
-                        //         data.type = steamapi.type;
-                        //         console.log("///" + data.title);
-                        //         delete (data.onmouseover);
-                        //         delete (data.onmouseout);
-                        //         delete (data.class);
-                        //         // db.collection("steam_info_20170423_2").insert(data);
 
-                        //     });
-                        // })(data);
                         datagroup.push(data);
                         } catch (error) {
 
@@ -97,8 +87,9 @@ MongoClient.connect(url, function (err, db) {
                 };
                 console.log(datagroup.length);
                 var position = 0
-                async.eachSeries(datagroup,function(data,cb){
+                async.eachLimit(datagroup,1000000,function(data,cb){
                     steamAPI(data['data-ds-appid'], function (steamapi) {
+                        try {
                                 position++;
                                 data.type = steamapi.type;
                                 console.log("process//" + j +"::"+position);
@@ -106,14 +97,19 @@ MongoClient.connect(url, function (err, db) {
                                 delete (data.onmouseout);
                                 delete (data.class);
                                 cb(err);
-                                db.collection("steam_info_20170423_2").insert(data);
+                                // db.collection("steam_info_20170423_2").insert(data);
+                                }
+                                catch(error){
+                                    return;
+                                }
                                 
                 }
+                
             );},function(err){
                 console.log(err);
             });
-
-                mySetTimeout(100);
+                
+                // mySetTimeout(10000);
                 console.log("--------------------------第" + j + "页完成,当前并发数" + threadCount);
                 j++;
 
