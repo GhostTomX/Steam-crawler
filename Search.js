@@ -17,7 +17,7 @@ function search() {
 
     MongoClient.connect(url, function (err, db) {
         console.log('数据库已链接');
-        var j = 1;//上限
+        var j = 5;//上限
         lastPage = "";
         var jpool = [];
         for (; j > 0; j--) {//下限
@@ -26,8 +26,10 @@ function search() {
         async.mapLimit(jpool, 1, function (j, cb) {
             req(j, cb);
         }, function (err, results) {
-            console.log("结束");
-            console.log(results);
+            console.log("信息扫描结束");
+            // console.log(results);
+            db.close();
+            // return;
         });
 
         function mySetTimeout(ms) {
@@ -54,7 +56,7 @@ function search() {
                     }
                     if ((lastPage === "该查询未传回任何结果。")) {
                         console.log(j + "该查询未传回任何结果");
-                        callback(null,j--)
+                        callback(null,j)
                         threadCount--;
                         return;
 
@@ -103,4 +105,7 @@ function search() {
     });
 }
 
-module.exports = search;
+module.exports = 
+{   search,
+    name
+};
