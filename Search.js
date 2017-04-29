@@ -6,18 +6,24 @@
     var threadCount = 0;//设定并发数量
 
 
-function search(err,cb) {
+
+
+var time = new Date( Date.now());//.转换成毫秒  
+
+var name = time.getFullYear() + "_" + (time.getMonth() < 10 ? '0' + (time.getMonth()+1) : (time.getMonth()+1)) + "_" + (time.getDate() < 10 ? '0' + time.getDate() : time.getDate()+"_"+ time.getTime()) ;  
+console.log(name);
+function search() {
     console.log('爬虫程序开始运行......');
 
     MongoClient.connect(url, function (err, db) {
         console.log('数据库已链接');
-        var j = 1060;
+        var j = 1;//上限
         lastPage = "";
         var jpool = [];
-        for (; j < 1080; j++) {
+        for (; j > 0; j--) {//下限
             jpool.push(j);
         }
-        async.mapLimit(jpool, 5, function (j, cb) {
+        async.mapLimit(jpool, 1, function (j, cb) {
             req(j, cb);
         }, function (err, results) {
             console.log("结束");
@@ -48,6 +54,8 @@ function search(err,cb) {
                     }
                     if ((lastPage === "该查询未传回任何结果。")) {
                         console.log(j + "该查询未传回任何结果");
+                        callback(null,j--)
+                        threadCount--;
                         return;
 
                     }
@@ -74,8 +82,7 @@ function search(err,cb) {
                             delete (data.onmouseover);
                             delete (data.onmouseout);
                             delete (data.class);
-
-                            // db.collection("steam_info_20170422_2").insert(data);
+                            db.collection("steam_info_"+name).insert(data);
                         } catch (error) {
                             console.log("其他data发生错误");
                             continue;
@@ -91,11 +98,9 @@ function search(err,cb) {
         }
 
         // console.log("test");
-        cb();
+        // cb();
 
     });
 }
-
-
 
 module.exports = search;
