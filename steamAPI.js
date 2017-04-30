@@ -1,7 +1,7 @@
 
-
-function  getsteamapi(appid,cb) {
-    var request = require('request');
+var request = require('request');
+function  getsteamapi(item,cb) {
+    var appid = item['data-ds-appid'];
     var steamapi = null;
     var options = {
         url: 'http://store.steampowered.com/api/appdetails/?appids='+appid,
@@ -13,7 +13,8 @@ function  getsteamapi(appid,cb) {
     function callback(error, response, body) {
         if (!error && response.statusCode == 200) {
             var info = JSON.parse(body);
-            cb(info[appid].data);
+            // console.log(body);
+            cb(null,info[appid].data);
         }
     }
 
